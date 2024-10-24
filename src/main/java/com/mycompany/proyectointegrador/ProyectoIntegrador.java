@@ -3,6 +3,7 @@
  */
 
 package com.mycompany.proyectointegrador;
+import static com.mycompany.proyectointegrador.Carrito.carrito;
 import java.util.*;
 
 /**
@@ -53,7 +54,7 @@ public class ProyectoIntegrador
                                3. Mostrar producto especifico
                                4. Modificar producto
                                5. Eliminar producto
-                               6. Salir""");
+                               6. Volver al menu principal""");
             menu=validarEnteros();
             sc.nextLine();
             
@@ -105,6 +106,7 @@ public class ProyectoIntegrador
                         case 3 -> pagoCarlos=new PagoTransferencia(23,monto);
                     }
                     procesarPago(pagoCarlos);
+                    carrito.getCarrito().clear();
                 }
                 case 4 -> seguir=false;
                 default -> System.out.println("Opcion invalida");
@@ -115,7 +117,7 @@ public class ProyectoIntegrador
     public static void mostrarInventario(ArrayList<Producto> lista){
         //Checar si el inventario esta vacio
         if(lista.isEmpty()){
-            System.out.println("El "+lista+"+esta vacio");
+            System.out.println("Ningun elemento encontrado");
             return;
         }
         
@@ -211,6 +213,9 @@ public class ProyectoIntegrador
                 //Retornar el indice del objeto en el ArrayList
                 return i;
             }
+        }
+        if(lista.equals(carrito)){
+            return -1;
         }
         System.out.println("Producto no encontrado");
         //Retornar indice invalido para cancelar la busqueda
