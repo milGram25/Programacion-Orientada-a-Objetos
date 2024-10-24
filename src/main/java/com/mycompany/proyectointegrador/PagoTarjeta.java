@@ -1,5 +1,6 @@
 package com.mycompany.proyectointegrador;
 
+import java.util.*;
 import static com.mycompany.proyectointegrador.ProyectoIntegrador.validarEntrada;
 import static com.mycompany.proyectointegrador.ProyectoIntegrador.validarFecha;
 
@@ -58,6 +59,8 @@ public class PagoTarjeta extends Pago{
     
     @Override
     public void realizarPago(){
+        Scanner sc=new Scanner(System.in);
+        String salir;
         numeroCuenta=validarEntrada("numero de tarjeta",16);
         
         CVV=validarEntrada("CVV",3);
@@ -68,8 +71,27 @@ public class PagoTarjeta extends Pago{
         
         do{
         mes=validarEntrada("mes de vencimiento",2);
-        }while(validarFecha(Integer.parseInt(mes),1,12)); 
+        }while(validarFecha(Integer.parseInt(mes),1,12));
         
-        System.out.println("Confirme sus datos\n"+this);
+        System.out.println(this);
+        
+        boolean flag=true;
+        
+        while(flag){
+        System.out.println("""
+                           Si desea modificar los datos, ingrese Y
+                           Si los datos son correctos, ingrese N""");
+        salir=sc.nextLine();
+            switch (salir) {
+                case "Y" -> realizarPago();
+                case "N" -> {
+                    flag=false;
+                }
+                default -> System.out.println("Opcion invalida");
+            }
+        }
+        
+        System.out.println("Cobro realizado por $"+getMonto());
+        
     }
 }

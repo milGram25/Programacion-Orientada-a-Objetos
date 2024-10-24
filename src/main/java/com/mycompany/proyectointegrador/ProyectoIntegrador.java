@@ -23,9 +23,20 @@ public class ProyectoIntegrador
     
     public static void main(String[] args) 
     {
-        PagoTarjeta pagoCarlos = new PagoTarjeta(13000);
-        procesarPago(pagoCarlos);
-        menuInventario();
+        int mainMenu;
+        boolean salir=true;
+        do{
+        System.out.println("""
+                           Soy:
+                           1.Comprador
+                           2.Vendedor""");
+        mainMenu=validarEnteros();
+        switch(mainMenu){
+            case 1 -> menuCarrito();
+            case 2 -> menuInventario();
+            default -> salir=false;
+        }
+        }while(salir);
         System.out.println("Hasta Pronto!");
     }
     
@@ -49,7 +60,7 @@ public class ProyectoIntegrador
             //Entrar al menu
             switch(menu){
                 case 1 -> ingresarProducto();
-                case 2 -> mostrarInventario();
+                case 2 -> mostrarInventario(inventario);
                 case 3 -> mostrarProducto();
                 case 4 -> modificarProducto();
                 case 5 -> eliminarProducto();
@@ -59,16 +70,58 @@ public class ProyectoIntegrador
         } while (seguir);
     }
     
-    public static void mostrarInventario(){
+    public static void menuCarrito()
+    {
+        Carrito carrito=new Carrito();
+        boolean seguir=true;
+        int menu;
+        do{
+            //Escoger opcion
+            System.out.println("""
+                               Que accion desea realizar
+                               1. Comprar nuevos productos
+                               2. Ver carrito
+                               3. Pagar carrito
+                               4. Volver a menu principal""");
+            menu=validarEnteros();
+            sc.nextLine();
+            
+            //Entrar al menu
+            switch(menu){
+                case 1 -> carrito.agregarCarrito();
+                case 2 -> mostrarInventario(carrito.getCarrito());
+                case 3 -> {
+                    Pago pagoCarlos = null;
+                    System.out.println("""
+                                       Elija metodo de pago
+                                       1.Pago con tarjeta
+                                       2.Pago PayPal
+                                       3.Transferencia Bancaria""");
+                    int opcion=validarEnteros();
+                    int monto=carrito.getMonto();
+                    switch(opcion){
+                        case 1 -> pagoCarlos=new PagoTarjeta(monto);
+                        case 2 -> pagoCarlos=new PagoPayPal(monto);
+                        case 3 -> pagoCarlos=new PagoTransferencia(23,monto);
+                    }
+                    procesarPago(pagoCarlos);
+                }
+                case 4 -> seguir=false;
+                default -> System.out.println("Opcion invalida");
+            }
+        } while (seguir);
+    }
+    
+    public static void mostrarInventario(ArrayList<Producto> lista){
         //Checar si el inventario esta vacio
-        if(inventario.isEmpty()){
-            System.out.println("Inventario vacio");
+        if(lista.isEmpty()){
+            System.out.println("El "+lista+"+esta vacio");
             return;
         }
         
         //Recorre el ArrayList dando salida a cada objeto
-        for(Producto Inventario:inventario){
-            System.out.println(Inventario);
+        for(Producto Lista:lista){
+            System.out.println(Lista);
         }
     }
     
@@ -151,10 +204,10 @@ public class ProyectoIntegrador
         }
     }
     
-    public static int buscarProducto(String name){
-        for(int i=0;i<inventario.size();i++){
+    public static int buscarProducto(String name, ArrayList<Producto> lista){
+        for(int i=0;i<lista.size();i++){
             //Comprobar que el nombre ingresado se encuentre en el ArrayList
-            if(inventario.get(i).getNombre().equals(name)){
+            if(lista.get(i).getNombre().equals(name)){
                 //Retornar el indice del objeto en el ArrayList
                 return i;
             }
@@ -179,7 +232,7 @@ public class ProyectoIntegrador
         
         //Intentar eliminar el objeto
         try{
-        inventario.remove(buscarProducto(eliminar));
+        inventario.remove(buscarProducto(eliminar,inventario));
         System.out.println("Producto eliminado");
         } catch (IndexOutOfBoundsException e){
         }
@@ -198,7 +251,7 @@ public class ProyectoIntegrador
         
         //Intentar mostrar el objeto
         try{
-        System.out.println(inventario.get(buscarProducto(mostrar)));
+        System.out.println(inventario.get(buscarProducto(mostrar,inventario)));
         } catch (IndexOutOfBoundsException e){
         }
     }
@@ -216,7 +269,7 @@ public class ProyectoIntegrador
         modificar=sc.nextLine();
         
         //Obtener indice del producto
-        index=buscarProducto(modificar);
+        index=buscarProducto(modificar,inventario);
         
         //Intenta modificar el producto
         try{
@@ -237,14 +290,12 @@ public class ProyectoIntegrador
     }
     
     public static void procesarPago(Pago pago){
-        pago.setMonto(0);
         pago.realizarPago();
     }
     
     public static String validarEntrada(String dato,int tamano){
         String entrada;
         while(true){
-        entrada="";
         System.out.println("Ingrese "+dato);
         entrada=sc.nextLine();
         if(entrada.matches("\\d{"+tamano+"}")){

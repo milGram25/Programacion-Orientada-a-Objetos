@@ -10,7 +10,7 @@ import static com.mycompany.proyectointegrador.ProyectoIntegrador.validarEnteros
  */
 public class PagoTransferencia extends Pago{
     
-    private int referencia, monto;
+    private int referencia;
     private String banco, cinter, name;
 
     public PagoTransferencia(int referencia, int monto) {
@@ -68,7 +68,7 @@ public class PagoTransferencia extends Pago{
         sb.append("\nCLABE: ").append(cinter);
         sb.append("\nBanco: ").append(banco);
         sb.append("\nNombre del Destinatario: ").append(name);
-        sb.append("\nMonto a pagar: ").append(monto);
+        sb.append("\nMonto a pagar: ").append(getMonto());
         sb.append("\nReferencia: ").append(referencia);
         sb.append("\nConcepto: Adquisicion de mercancia");
         return sb.toString();
