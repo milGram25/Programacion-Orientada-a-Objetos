@@ -38,17 +38,24 @@ public  class Carrito {
         
         //Agregar si no existe
         if(indexCar==-1){
+            //Comprobar que haya suficiente inventario
+            if(numProductos<inventario.get(indexInv).getCantidad()){
             System.out.println("Agregando producto al carrito");
             agregar.setCantidad(numProductos);
             carrito.add(agregar);
+            } else {
+                System.out.println("Inventario insuficiente");
+                return;
+            }
             //Comprobar que haya suficiente inventario
         } else if ((carrito.get(indexCar).getCantidad()+numProductos)<inventario.get(indexInv).getCantidad()){
             carrito.get(indexCar).setCantidad(carrito.get(indexCar).getCantidad()+numProductos);
-            inventario.get(indexInv).setCantidad(inventario.get(indexInv).getCantidad()-numProductos);
         //Salir si no hay suficiente
         } else {
-            System.out.println("Nel perro, ya no hay tanto");
+            System.out.println("Inventario insuficiente");
+            return;
         }
+        inventario.get(indexInv).setCantidad(inventario.get(indexInv).getCantidad()-numProductos);
         
     }
 

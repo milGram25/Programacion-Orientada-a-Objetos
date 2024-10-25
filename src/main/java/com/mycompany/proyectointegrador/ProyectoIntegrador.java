@@ -103,7 +103,7 @@ public class ProyectoIntegrador
                     switch(opcion){
                         case 1 -> pagoCarlos=new PagoTarjeta(monto);
                         case 2 -> pagoCarlos=new PagoPayPal(monto);
-                        case 3 -> pagoCarlos=new PagoTransferencia(23,monto);
+                        case 3 -> pagoCarlos=new PagoTransferencia(0,monto);
                     }
                     procesarPago(pagoCarlos);
                     carrito.getCarrito().clear();

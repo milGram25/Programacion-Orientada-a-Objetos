@@ -1,7 +1,6 @@
 package com.mycompany.proyectointegrador;
 
-import java.util.ArrayList;
-
+import java.util.*;
 import static com.mycompany.proyectointegrador.ProyectoIntegrador.validarEnteros;
 
 /**
@@ -24,6 +23,11 @@ public class PagoTransferencia extends Pago{
 
     public void setReferencia(int referencia) {
         this.referencia = referencia;
+    }
+    
+    public void crearReferencia(){
+        Random random=new Random();
+        referencia=random.nextInt(1000000-10000)+10000;
     }
     
     @Override
@@ -58,6 +62,7 @@ public class PagoTransferencia extends Pago{
         banco=bancos.get(bancoEscogido).getBanco();
         cinter=bancos.get(bancoEscogido).getCinter();
         name=bancos.get(bancoEscogido).getName();
+        crearReferencia();
         System.out.println(this);
         
     }
