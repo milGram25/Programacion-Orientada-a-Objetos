@@ -31,7 +31,10 @@ public  class Carrito {
         numProductos = validarEnteros();
         
         //Crear producto auxiliar
-        Producto agregar = inventario.get(indexInv);
+        Producto agregar = new Producto();
+        agregar.setNombre(inventario.get(indexInv).getNombre());
+        agregar.setCantidad(inventario.get(indexInv).getCantidad());
+        agregar.setPrecio(inventario.get(indexInv).getPrecio());
         
         //Buscar el indice en el carrito. Si aun no existe, retorna -1
         indexCar=buscarProducto(nombre,carrito);
