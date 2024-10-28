@@ -19,7 +19,7 @@ public  class Carrito {
         Producto aux;
         
         //Buscar objeto en el inventario
-        System.out.println("Productos que desea agregar: ");
+        System.out.println("Nombre del producto que desea agregar: ");
         nombre = sc.nextLine();
         indexInv=buscarProducto(nombre,inventario);
         if(indexInv==-1){

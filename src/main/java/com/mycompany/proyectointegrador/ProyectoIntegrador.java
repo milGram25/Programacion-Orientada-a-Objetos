@@ -30,12 +30,14 @@ public class ProyectoIntegrador
         System.out.println("""
                            Soy:
                            1.Comprador
-                           2.Vendedor""");
+                           2.Vendedor
+                           3.Salir del punto de venta""");
         mainMenu=validarEnteros();
         switch(mainMenu){
             case 1 -> menuCarrito();
             case 2 -> menuInventario();
-            default -> salir=false;
+            case 3 -> salir=false;
+            default -> System.out.println("Opcion invalida");
         }
         }while(salir);
         System.out.println("Hasta Pronto!");
@@ -92,6 +94,10 @@ public class ProyectoIntegrador
                 case 1 -> carrito.agregarCarrito();
                 case 2 -> mostrarInventario(carrito.getCarrito());
                 case 3 -> {
+                    if(carrito.getCarrito().isEmpty()){
+                        System.out.println("Carrito vacio");
+                        break;
+                    }
                     Pago pagoCarlos = null;
                     System.out.println("""
                                        Elija metodo de pago
@@ -117,7 +123,7 @@ public class ProyectoIntegrador
     public static void mostrarInventario(ArrayList<Producto> lista){
         //Checar si el inventario esta vacio
         if(lista.isEmpty()){
-            System.out.println("Ningun elemento encontrado");
+            System.out.println("Ningun producto encontrado");
             return;
         }
         
@@ -188,7 +194,7 @@ public class ProyectoIntegrador
         for(int i=1;i<=m;i++)
         {
             //Variables auxiliares para almacenar los datos temporalmente
-            System.out.println("Producto "+i+":");
+            System.out.println("Nombre del producto "+i+":");
             nombre=sc.nextLine();
             System.out.println("Precio: ");
             precio=validarEnteros();
