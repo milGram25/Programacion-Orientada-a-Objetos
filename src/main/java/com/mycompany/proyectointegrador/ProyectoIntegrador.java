@@ -22,6 +22,7 @@ public class ProyectoIntegrador
     static Scanner sc=new Scanner(System.in);
     static ArrayList<Producto> inventario =new ArrayList<>();
     
+    
     public static void main(String[] args) 
     {
         int mainMenu;

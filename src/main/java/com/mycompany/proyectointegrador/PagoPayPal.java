@@ -31,7 +31,8 @@ public class PagoPayPal extends Pago{
         
     
     }
-    public void realizarPago(PagoPayPal cuentaPaypal){
+    @Override
+    public void realizarPago(){
         Scanner scanner = new Scanner(System.in);
         
         while (true ){
