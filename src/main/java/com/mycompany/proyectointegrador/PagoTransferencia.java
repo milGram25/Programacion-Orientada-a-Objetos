@@ -11,7 +11,8 @@ public class PagoTransferencia extends Pago{
     
     private int referencia;
     private String banco, cinter, name;
-
+    
+    //Constructor
     public PagoTransferencia(int referencia, int monto) {
         super(monto);
         this.referencia = referencia;
