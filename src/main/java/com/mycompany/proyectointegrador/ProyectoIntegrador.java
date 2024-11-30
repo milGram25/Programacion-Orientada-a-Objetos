@@ -15,17 +15,17 @@ import java.util.*;
  * González Rodríguez Carlos
  * Santana Christopher
  * 
- * 
  */
 public class ProyectoIntegrador 
 {
     static Scanner sc=new Scanner(System.in);
     static ArrayList<Producto> inventario =new ArrayList<>();
+    static ArrayList<Producto> carrito =new ArrayList<>();
     
     
     public static void main(String[] args) 
     {
-        int mainMenu;
+        /*int mainMenu;
         boolean salir=true;
         do{
         System.out.println("""
@@ -41,7 +41,8 @@ public class ProyectoIntegrador
             default -> System.out.println("Opcion invalida");
         }
         }while(salir);
-        System.out.println("Hasta Pronto!");
+        System.out.println("Hasta Pronto!");*/
+        new ingreso().setVisible(true);
     }
     
     public static void menuInventario()
@@ -110,7 +111,7 @@ public class ProyectoIntegrador
                     switch(opcion){
                         case 1 -> pagoCarlos=new PagoTarjeta(monto);
                         case 2 -> pagoCarlos=new PagoPayPal(monto);
-                        case 3 -> pagoCarlos=new PagoTransferencia(0,monto);
+                        case 3 -> pagoCarlos=new PagoTransferencia(monto);
                     }
                     procesarPago(pagoCarlos);
                     carrito.getCarrito().clear();
@@ -325,6 +326,14 @@ public class ProyectoIntegrador
         } else {
             System.out.println("Fecha invalida. Vuelva a ingresar");
             return true;
+        }
+    }
+    
+    public void verificarInventario(){
+        for(int index=0;index<inventario.size();index++){
+            if(inventario.get(index).getCantidad()==0){
+                inventario.remove(index);
+            }
         }
     }
 }

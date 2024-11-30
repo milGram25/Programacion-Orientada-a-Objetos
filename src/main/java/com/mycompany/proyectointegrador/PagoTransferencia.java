@@ -13,9 +13,8 @@ public class PagoTransferencia extends Pago{
     private String banco, cinter, name;
     
     //Constructor
-    public PagoTransferencia(int referencia, int monto) {
+    public PagoTransferencia(double monto) {
         super(monto);
-        this.referencia = referencia;
     }
 
     public int getReferencia() {
@@ -31,11 +30,11 @@ public class PagoTransferencia extends Pago{
         referencia=random.nextInt(1000000-10000)+10000;
     }
     
-    @Override
-    public void realizarPago()
+    
+    public void realizarPago(String bancoSelec)
     {
-        int bancoEscogido;
-        System.out.println("""
+        int bancoEscogido=0;
+        /*System.out.println("""
                            En cual banco realizara la transferencia del pago?
                            1. BBVA
                            2. Santander
@@ -44,7 +43,7 @@ public class PagoTransferencia extends Pago{
                            5. Klar
                            6. Banco Azteca
                            7. HSBC""");
-        bancoEscogido=validarEnteros()-1;
+        bancoEscogido=validarEnteros()-1;*/
         ArrayList<Bancos> bancos =new ArrayList<>();
         Bancos BBVA=new Bancos("BBVA","190253000129563975","CINEPOLIADO S.A. de C.V.");
         bancos.add(BBVA);
@@ -60,10 +59,14 @@ public class PagoTransferencia extends Pago{
         bancos.add(BancoAzteca);
         Bancos HSBC=new Bancos("HSBC","190253000129563910","CINEPOLIADO S.A. de C.V.");
         bancos.add(HSBC);
-        banco=bancos.get(bancoEscogido).getBanco();
-        cinter=bancos.get(bancoEscogido).getCinter();
-        name=bancos.get(bancoEscogido).getName();
-        crearReferencia();
+        for(int i=0;i<bancos.size();i++){
+            if(bancos.get(i).getBanco().equals(bancoSelec)){
+                banco=bancos.get(bancoEscogido).getBanco();
+                cinter=bancos.get(bancoEscogido).getCinter();
+                name=bancos.get(bancoEscogido).getName();
+                crearReferencia();
+            }
+        }
         System.out.println(this);
         
     }

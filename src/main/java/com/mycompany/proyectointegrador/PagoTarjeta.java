@@ -12,7 +12,7 @@ public class PagoTarjeta extends Pago{
     
     private String numeroCuenta,CVV,mes,anio;
     
-    public PagoTarjeta(int monto) {
+    public PagoTarjeta(double monto) {
         super(monto);
     }    
 

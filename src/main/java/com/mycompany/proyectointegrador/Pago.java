@@ -10,16 +10,16 @@ package com.mycompany.proyectointegrador;
  */
 public abstract class Pago {
     
-    private int monto;
+    private double monto;
 
-    public Pago(int monto) {
+    public Pago(double monto) {
         this.monto = monto;
     }
     
     public void realizarPago(){
     }
 
-    public int getMonto() {
+    public double getMonto() {
         return monto;
     }
 
